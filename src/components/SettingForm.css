@@ -1,0 +1,23 @@
+.SettingFormFrame {
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  border: 1px solid white;
+}
+
+.SettingFormEquation {
+  width: 70%;
+}
+
+.SettingFormItem + .SettingFormItem {
+  margin-top: 8px;
+}
+
+label + * {
+  margin-left: 4px;
+}
+
+input + span {
+  margin-left: 8px;
+}

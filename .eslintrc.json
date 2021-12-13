@@ -11,7 +11,8 @@
   ],
   "plugins": [
     "react",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "prefer-arrow"
   ],
   "env": { "node": true, "es6": true },
   "parser": "@typescript-eslint/parser",
@@ -25,6 +26,29 @@
     }
   },
   "rules": {
+    "@typescript-eslint/explicit-member-accessibility": ["error"],
+    "lines-between-class-members": [
+      "error",
+      "always",
+      {
+        "exceptAfterSingleLine": true
+      }
+    ],
+    "no-void": [
+      "error",
+      {
+        "allowAsStatement": true
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "prefer-arrow/prefer-arrow-functions": [
+      "error",
+      {
+        "disallowPrototype": true,
+        "singleReturnOnly": false,
+        "classPropertiesAllowed": false
+      }
+    ],
     "max-len": ["warn", {
       "code": 120,
       "ignoreUrls": true,

@@ -10,7 +10,7 @@ export class Snapshots implements ISnapshots {
   private snapshotsOrtho: Snapshot[];
   private snapshotsPolar: Snapshot[];
 
-  constructor(simulator: ISimulator, visualizer: IVisualizer) {
+  public constructor(simulator: ISimulator, visualizer: IVisualizer) {
     this.simulator = simulator;
     this.visualizer = visualizer;
     this.snapshotsOrtho = [];
@@ -50,7 +50,12 @@ export class Snapshots implements ISnapshots {
     });
   }
 
-  async update(equation: string, x: number[], drawSetting: DrawSetting, action: ControllerUpdateAction): Promise<void> {
+  public async update(
+    equation: string,
+    x: number[],
+    drawSetting: DrawSetting,
+    action: ControllerUpdateAction
+  ): Promise<void> {
     if (action === ControllerUpdateAction.None) {
       return;
     }
@@ -71,7 +76,7 @@ export class Snapshots implements ISnapshots {
     });
   }
 
-  get(coordinate: Coordinate): Snapshot[] {
+  public get(coordinate: Coordinate): Snapshot[] {
     switch (coordinate) {
       case Coordinate.Ortho:
         return this.snapshotsOrtho;

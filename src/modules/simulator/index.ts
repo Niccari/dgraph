@@ -3,7 +3,7 @@ import { evaluate } from "mathjs";
 import { Value } from "../../models";
 
 export class Simulator implements ISimulator {
-  async create(equation: string, x: number[]): Promise<Value[]> {
+  public async create(equation: string, x: number[]): Promise<Value[]> {
     return Promise.all(
       x.map(async (x) => {
         try {

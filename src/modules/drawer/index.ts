@@ -2,7 +2,7 @@ import { Snapshot, AxisSetting } from "../../models";
 import { IDrawer } from "./interface";
 
 export class Drawer implements IDrawer {
-  draw(
+  public draw(
     context: CanvasRenderingContext2D,
     snapshots: Snapshot[],
     axisSetting: AxisSetting,

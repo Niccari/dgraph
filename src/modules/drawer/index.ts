@@ -1,7 +1,7 @@
 import { Snapshot, AxisSetting } from "../../models";
 import { IDrawer } from "./interface";
 
-export class Drawer implements IDrawer {
+class Drawer implements IDrawer {
   public draw(
     context: CanvasRenderingContext2D,
     snapshots: Snapshot[],
@@ -11,7 +11,7 @@ export class Drawer implements IDrawer {
     canvasHeight: number
   ): void {
     context.clearRect(0, 0, canvasWidth, canvasHeight);
-    for (let i = 0; i < snapshots.length - 1; i++) {
+    for (let i = 0; i < snapshots.length - 1; i += 1) {
       const start = snapshots[i];
       const end = snapshots[i + 1];
 
@@ -28,16 +28,18 @@ export class Drawer implements IDrawer {
     }
   }
 
-  private rescalePoint(
+  private rescalePoint = (
     snapshot: Snapshot,
     axisSetting: AxisSetting,
     displayWidth: number,
     displayHeight: number
-  ): [number, number] {
+  ): [number, number] => {
     const { xMin, xMax, yMin, yMax } = axisSetting;
     return [
       ((snapshot.value.x - xMin) / (xMax - xMin)) * displayWidth,
       (1 - (snapshot.value.y - yMin) / (yMax - yMin)) * displayHeight,
     ];
-  }
+  };
 }
+
+export default Drawer;

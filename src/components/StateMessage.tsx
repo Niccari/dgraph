@@ -4,7 +4,7 @@ interface Props {
   simulatingState: SimulatingState;
 }
 
-export const StateMessage: (props: Props) => JSX.Element = ({ simulatingState }) => {
+const StateMessage: (props: Props) => JSX.Element = ({ simulatingState }) => {
   return (
     <>
       {simulatingState === SimulatingState.Loading && <span>⏰</span>}
@@ -13,3 +13,5 @@ export const StateMessage: (props: Props) => JSX.Element = ({ simulatingState })
     </>
   );
 };
+
+export default StateMessage;

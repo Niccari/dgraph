@@ -1,8 +1,8 @@
-import { Canvas } from "../components/Canvas";
-import { controller } from "../container";
+import Canvas from "../components/Canvas";
+import controller from "../container";
 import { useAppSelector } from "../redux/hooks";
 
-export const CanvasContainer = (): JSX.Element => {
+const CanvasContainer = (): JSX.Element => {
   const setting = useAppSelector((state) => state.simulation.setting);
 
   const onDraw = (context: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number) => {
@@ -10,3 +10,5 @@ export const CanvasContainer = (): JSX.Element => {
   };
   return <Canvas onDraw={onDraw} />;
 };
+
+export default CanvasContainer;

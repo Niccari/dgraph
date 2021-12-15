@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { RootContainer } from "./containers/RootContainer";
+import RootContainer from "./containers/RootContainer";
 
 const App = (): JSX.Element => {
   return <RootContainer />;

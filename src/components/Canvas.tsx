@@ -1,17 +1,20 @@
 import "./Canvas.css";
 import { useEffect, useRef } from "react";
 
-export interface Props {
+interface Props {
   onDraw: (context: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number) => void;
 }
 
-export const Canvas: (props: Props) => JSX.Element = ({ onDraw }) => {
+const Canvas: React.FC<Props> = ({ onDraw }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const adjustCanvasSize = (canvas: HTMLCanvasElement) => {
     // iOS Safari limitation: > 4096 x 4096 is not acceptable.
     const width = Math.min(1000 * window.devicePixelRatio, 4000);
+
+    // eslint-disable-next-line no-param-reassign
     canvas.width = width;
+    // eslint-disable-next-line no-param-reassign
     canvas.height = width;
   };
 
@@ -37,3 +40,5 @@ export const Canvas: (props: Props) => JSX.Element = ({ onDraw }) => {
 
   return <canvas className="canvas" ref={canvasRef} />;
 };
+
+export default Canvas;

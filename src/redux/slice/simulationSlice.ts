@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { controller } from "../../container";
-import { ChartSetting, Coordinate } from "../../models";
-import { ColorPattern } from "../../modules/colorGenerator/interface";
+import controller from "../../container";
+import { ChartSetting, defaultSetting } from "../../models";
 
 // state
-export enum SimulatingState {
-  Loading,
-  Completed,
-  Error,
-}
+export const SimulatingState = {
+  Loading: "Loading",
+  Completed: "Completed",
+  Error: "Error",
+};
+export type SimulatingState = typeof SimulatingState[keyof typeof SimulatingState];
 
 export interface State {
   simulatingState: SimulatingState;
@@ -17,24 +17,7 @@ export interface State {
 
 export const defaultState: State = {
   simulatingState: SimulatingState.Completed,
-  setting: {
-    equation: "2(sin(5.01x) + cos(4.99x))sin(10x)",
-    axis: {
-      xStep: 0.001,
-      xMin: -Math.PI,
-      xMax: Math.PI,
-      yMin: -Math.PI,
-      yMax: Math.PI,
-    },
-    coordinate: Coordinate.Polar,
-    chartAppearance: {
-      draw: {
-        pattern: ColorPattern.Rainbow,
-        colorStep: 256 / ((2 * Math.PI) / 0.001),
-      },
-      thickness: 5,
-    },
-  },
+  setting: defaultSetting,
 };
 
 const initialSetting = ((): ChartSetting => {
@@ -55,7 +38,7 @@ export const initialState = {
 // actionCreator
 export interface SimulateAsyncSetting {
   setting: ChartSetting;
-  prevSetting: ChartSetting;
+  prevSetting?: ChartSetting;
 }
 
 export const simulateAsync = createAsyncThunk(

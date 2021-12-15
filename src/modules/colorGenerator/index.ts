@@ -9,7 +9,7 @@ type ColorGradientItem = {
 };
 
 class ColorGenerator implements IColorGenerator {
-  private readonly _config: DrawSetting;
+  private readonly config: DrawSetting;
   private colorStartIndex: number;
   private colorIterateIndex: number;
   private colorTable: ColorGradientItem[] = [];
@@ -23,21 +23,25 @@ class ColorGenerator implements IColorGenerator {
     { position: 223, red: 255, green: 0, blue: 255 },
     { position: 255, red: 255, green: 0, blue: 0 },
   ];
+
   private readonly gradientWarm: ColorGradientItem[] = [
     { position: 0, red: 255, green: 0, blue: 0 },
     { position: 128, red: 255, green: 255, blue: 0 },
     { position: 255, red: 255, green: 0, blue: 0 },
   ];
+
   private readonly gradientForest: ColorGradientItem[] = [
     { position: 0, red: 255, green: 255, blue: 0 },
     { position: 128, red: 0, green: 255, blue: 0 },
     { position: 255, red: 255, green: 255, blue: 0 },
   ];
+
   private readonly gradientCool: ColorGradientItem[] = [
     { position: 0, red: 0, green: 0, blue: 255 },
     { position: 128, red: 0, green: 255, blue: 255 },
     { position: 255, red: 0, green: 0, blue: 255 },
   ];
+
   private readonly gradientHeat: ColorGradientItem[] = [
     { position: 0, red: 255, green: 255, blue: 0 },
     { position: 43, red: 255, green: 0, blue: 0 },
@@ -47,11 +51,13 @@ class ColorGenerator implements IColorGenerator {
     { position: 223, red: 255, green: 0, blue: 0 },
     { position: 255, red: 255, green: 255, blue: 0 },
   ];
+
   private readonly gradientMonochrome: ColorGradientItem[] = [
     { position: 0, red: 0, green: 0, blue: 0 },
     { position: 128, red: 255, green: 255, blue: 255 },
     { position: 255, red: 0, green: 0, blue: 0 },
   ];
+
   private readonly gradientPastel: ColorGradientItem[] = [
     { position: 0, red: 255, green: 154, blue: 154 },
     { position: 85, red: 255, green: 255, blue: 154 },
@@ -59,13 +65,13 @@ class ColorGenerator implements IColorGenerator {
     { position: 255, red: 255, green: 154, blue: 154 },
   ];
 
-  private _colorToHex = (color: number) => {
+  private colorToHex = (color: number) => {
     const hex = Math.round(color).toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+    return hex.length === 1 ? `0${hex}` : hex;
   };
 
-  constructor(config: DrawSetting) {
-    this._config = config;
+  public constructor(config: DrawSetting) {
+    this.config = config;
     this.colorStartIndex = 0;
     this.colorIterateIndex = 0;
     const gradient: ColorGradientItem[] = (() => {
@@ -84,21 +90,24 @@ class ColorGenerator implements IColorGenerator {
           return this.gradientMonochrome;
         case ColorPattern.Pastel:
           return this.gradientPastel;
+        default:
+          return this.gradientRainbows;
       }
     })();
 
     let endIndex = 1;
     let start = gradient[0];
     let end = gradient[1];
-    for (let i = 0; i < 256; i++) {
+    for (let i = 0; i < 256; i += 1) {
       const ratio = (i - start.position) / (end.position - start.position);
       const red = start.red + ratio * (end.red - start.red);
       const green = start.green + ratio * (end.green - start.green);
       const blue = start.blue + ratio * (end.blue - start.blue);
       this.colorTable.push({ position: i, red, green, blue });
-      if (end.position == i) {
+      if (end.position === i) {
         start = end;
-        end = gradient[++endIndex];
+        endIndex += 1;
+        end = gradient[endIndex];
       }
     }
   }
@@ -117,17 +126,17 @@ class ColorGenerator implements IColorGenerator {
         beforeWeight * this.colorTable[beforeIndex].blue + afterWeight * this.colorTable[afterIndex].blue
       ),
     };
-    return "#" + this._colorToHex(color.red) + this._colorToHex(color.green) + this._colorToHex(color.blue);
+    return `#${this.colorToHex(color.red)}${this.colorToHex(color.green)}${this.colorToHex(color.blue)}`;
   }
 
-  next(): string {
+  public next(): string {
     const color = this.fetchColor(Math.floor(this.colorIterateIndex));
-    this.colorIterateIndex = (this.colorIterateIndex + this._config.colorStep) % 256;
+    this.colorIterateIndex = (this.colorIterateIndex + this.config.colorStep) % 256;
     return color;
   }
 
-  endIteration(): void {
-    this.colorStartIndex = (this.colorStartIndex + this._config.colorStep) % 256;
+  public endIteration(): void {
+    this.colorStartIndex = (this.colorStartIndex + this.config.colorStep) % 256;
     this.colorIterateIndex = this.colorStartIndex;
   }
 }

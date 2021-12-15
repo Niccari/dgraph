@@ -1,21 +1,23 @@
-import { ISimulator } from "./interface";
 import { evaluate } from "mathjs";
+import { ISimulator } from "./interface";
 import { Value } from "../../models";
 
-export class Simulator implements ISimulator {
-  async create(equation: string, x: number[]): Promise<Value[]> {
+class Simulator implements ISimulator {
+  public create = async (equation: string, x: number[]): Promise<Value[]> => {
     return Promise.all(
-      x.map(async (x) => {
+      x.map(async (xi) => {
         try {
-          const result = evaluate(equation, { x });
+          const result = evaluate(equation, { x: xi });
           if (typeof result === "number") {
-            return { x, y: result };
+            return { x: xi, y: result };
           }
-          return { x, y: NaN };
+          return { x: xi, y: NaN };
         } catch {
-          return Promise.reject("Cannot eval");
+          return Promise.reject(new Error("Cannot eval"));
         }
       })
     );
-  }
+  };
 }
+
+export default Simulator;

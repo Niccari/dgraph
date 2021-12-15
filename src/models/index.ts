@@ -1,9 +1,10 @@
 import { ColorPattern } from "../modules/colorGenerator/interface";
 
-export enum Coordinate {
-  Ortho = "Ortho",
-  Polar = "Polar",
-}
+export const Coordinate = {
+  Ortho: "Ortho",
+  Polar: "Polar",
+} as const;
+export type Coordinate = typeof Coordinate[keyof typeof Coordinate];
 
 export interface SnapshotDrawSetting {
   color: string;
@@ -44,3 +45,22 @@ export interface ChartSetting {
   axis: AxisSetting;
   chartAppearance: ChartAppearanceSetting;
 }
+
+export const defaultSetting = {
+  equation: "2(sin(5.01x) + cos(4.99x))sin(10x)",
+  axis: {
+    xStep: 0.001,
+    xMin: -Math.PI,
+    xMax: Math.PI,
+    yMin: -Math.PI,
+    yMax: Math.PI,
+  },
+  coordinate: Coordinate.Polar,
+  chartAppearance: {
+    draw: {
+      pattern: ColorPattern.Rainbow,
+      colorStep: 256 / ((2 * Math.PI) / 0.001),
+    },
+    thickness: 5,
+  },
+};

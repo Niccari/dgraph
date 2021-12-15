@@ -4,42 +4,40 @@ import { ISimulator } from "../simulator/interface";
 import { IVisualizer } from "../visualizer/interface";
 import { ISnapshots } from "./interface";
 
-export class Snapshots implements ISnapshots {
+class Snapshots implements ISnapshots {
   private simulator: ISimulator;
   private visualizer: IVisualizer;
   private snapshotsOrtho: Snapshot[];
   private snapshotsPolar: Snapshot[];
 
-  constructor(simulator: ISimulator, visualizer: IVisualizer) {
+  public constructor(simulator: ISimulator, visualizer: IVisualizer) {
     this.simulator = simulator;
     this.visualizer = visualizer;
     this.snapshotsOrtho = [];
     this.snapshotsPolar = [];
   }
 
-  private async getValues(equation: string, x: number[], action: ControllerUpdateAction): Promise<Value[]> {
+  private getValues = async (equation: string, x: number[], action: ControllerUpdateAction): Promise<Value[]> => {
     if (action === ControllerUpdateAction.UpdateAll || action === ControllerUpdateAction.UpdateSimulation) {
-      return await this.simulator.create(equation, x).catch((e) => {
+      return this.simulator.create(equation, x).catch((e) => {
         return Promise.reject(e);
       });
-    } else {
-      return this.snapshotsOrtho.map((s) => s.value);
     }
-  }
+    return this.snapshotsOrtho.map((s) => s.value);
+  };
 
-  private async getDrawSettings(
+  private getDrawSettings = async (
     x: number[],
     drawSetting: DrawSetting,
     action: ControllerUpdateAction
-  ): Promise<SnapshotDrawSetting[]> {
+  ): Promise<SnapshotDrawSetting[]> => {
     if (action === ControllerUpdateAction.UpdateAll || action === ControllerUpdateAction.UpdateAppearance) {
-      return await this.visualizer.create(x, drawSetting);
-    } else {
-      return this.snapshotsOrtho.map((s) => s.drawSetting);
+      return this.visualizer.create(x, drawSetting);
     }
-  }
+    return this.snapshotsOrtho.map((s) => s.drawSetting);
+  };
 
-  private toSnapshots(x: number[], values: Value[], drawSettings: SnapshotDrawSetting[]): Snapshot[] {
+  private toSnapshots = (x: number[], values: Value[], drawSettings: SnapshotDrawSetting[]): Snapshot[] => {
     const count = new Array(x.length).fill(0).map((_, index) => index);
     return count.map((index) => {
       return {
@@ -48,9 +46,14 @@ export class Snapshots implements ISnapshots {
         drawSetting: drawSettings[index],
       };
     });
-  }
+  };
 
-  async update(equation: string, x: number[], drawSetting: DrawSetting, action: ControllerUpdateAction): Promise<void> {
+  public update = async (
+    equation: string,
+    x: number[],
+    drawSetting: DrawSetting,
+    action: ControllerUpdateAction
+  ): Promise<void> => {
     if (action === ControllerUpdateAction.None) {
       return;
     }
@@ -69,14 +72,18 @@ export class Snapshots implements ISnapshots {
         },
       };
     });
-  }
+  };
 
-  get(coordinate: Coordinate): Snapshot[] {
+  public get(coordinate: Coordinate): Snapshot[] {
     switch (coordinate) {
       case Coordinate.Ortho:
         return this.snapshotsOrtho;
       case Coordinate.Polar:
         return this.snapshotsPolar;
+      default:
+        return this.snapshotsOrtho;
     }
   }
 }
+
+export default Snapshots;

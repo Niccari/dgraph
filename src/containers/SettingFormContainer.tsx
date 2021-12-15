@@ -1,9 +1,9 @@
-import { SettingForm } from "../components/SettingForm";
+import SettingForm from "../components/SettingForm";
 import { ChartSetting } from "../models";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { simulateAsync } from "../redux/slice/simulationSlice";
 
-export const SettingFormContainer = (): JSX.Element => {
+const SettingFormContainer = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const setting = useAppSelector((state) => state.simulation.setting);
   const simulatingState = useAppSelector((state) => state.simulation.simulatingState);
@@ -18,3 +18,5 @@ export const SettingFormContainer = (): JSX.Element => {
 
   return <SettingForm onSettingUpdate={onSettingUpdate} simulatingState={simulatingState} />;
 };
+
+export default SettingFormContainer;

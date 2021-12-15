@@ -46,7 +46,7 @@ export interface ChartSetting {
   chartAppearance: ChartAppearanceSetting;
 }
 
-export const defaultSetting = {
+const defaultSetting = {
   equation: "2(sin(5.01x) + cos(4.99x))sin(10x)",
   axis: {
     xStep: 0.001,
@@ -64,3 +64,13 @@ export const defaultSetting = {
     thickness: 5,
   },
 };
+
+export const initialSetting = ((): ChartSetting => {
+  const query = new URL(document.location.href).searchParams;
+  const settingQuery = query.get("setting") || "";
+  try {
+    return JSON.parse(atob(settingQuery));
+  } catch (e) {
+    return defaultSetting;
+  }
+})();

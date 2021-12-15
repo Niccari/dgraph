@@ -7,9 +7,11 @@ class Controller implements IController {
   private snapshots: ISnapshots;
   private drawer: IDrawer;
 
-  public constructor(snapshots: ISnapshots, drawer: IDrawer) {
+  public constructor(snapshots: ISnapshots, drawer: IDrawer, defaultSetting: ChartSetting) {
     this.snapshots = snapshots;
     this.drawer = drawer;
+
+    this.update(defaultSetting);
   }
 
   private toXRange = (axisSetting: AxisSetting): number[] => {

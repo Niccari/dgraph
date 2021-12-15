@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import controller from "../../container";
-import { ChartSetting, defaultSetting } from "../../models";
+import { ChartSetting, initialSetting } from "../../models";
 
 // state
 export const SimulatingState = {
@@ -15,23 +15,8 @@ export interface State {
   setting: ChartSetting;
 }
 
-export const defaultState: State = {
-  simulatingState: SimulatingState.Completed,
-  setting: defaultSetting,
-};
-
-const initialSetting = ((): ChartSetting => {
-  const query = new URL(document.location.href).searchParams;
-  const settingQuery = query.get("setting") || "";
-  try {
-    return JSON.parse(atob(settingQuery));
-  } catch (e) {
-    return defaultState.setting;
-  }
-})();
-
 export const initialState = {
-  ...defaultState,
+  simulatingState: SimulatingState.Completed,
   setting: initialSetting,
 };
 

@@ -37,7 +37,7 @@ class Snapshots implements ISnapshots {
     return this.snapshotsOrtho.map((s) => s.drawSetting);
   };
 
-  private toSnapshots = (x: number[], values: Value[], drawSettings: SnapshotDrawSetting[]): Snapshot[] => {
+  private static toSnapshots = (x: number[], values: Value[], drawSettings: SnapshotDrawSetting[]): Snapshot[] => {
     const count = new Array(x.length).fill(0).map((_, index) => index);
     return count.map((index) => {
       return {
@@ -62,7 +62,7 @@ class Snapshots implements ISnapshots {
     });
     const drawSettings = await this.getDrawSettings(x, drawSetting, action);
 
-    this.snapshotsOrtho = this.toSnapshots(x, values, drawSettings);
+    this.snapshotsOrtho = Snapshots.toSnapshots(x, values, drawSettings);
     this.snapshotsPolar = this.snapshotsOrtho.map((v) => {
       return {
         ...v,

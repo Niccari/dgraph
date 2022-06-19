@@ -14,13 +14,13 @@ class Controller implements IController {
     this.update(defaultSetting);
   }
 
-  private toXRange = (axisSetting: AxisSetting): number[] => {
+  private static toXRange = (axisSetting: AxisSetting): number[] => {
     const { xMin, xMax, xStep } = axisSetting;
     const count = Math.floor((xMax - xMin) / xStep) + 1;
     return new Array(count).fill(0).map((_, index) => xMin + index * xStep);
   };
 
-  private findAction = (setting: ChartSetting, prevSetting?: ChartSetting): ControllerUpdateAction => {
+  private static findAction = (setting: ChartSetting, prevSetting?: ChartSetting): ControllerUpdateAction => {
     if (!prevSetting) {
       return ControllerUpdateAction.UpdateAll;
     }
@@ -40,8 +40,8 @@ class Controller implements IController {
   };
 
   public async update(setting: ChartSetting, prevSetting?: ChartSetting): Promise<void> {
-    const x = this.toXRange(setting.axis);
-    const action = this.findAction(setting, prevSetting);
+    const x = Controller.toXRange(setting.axis);
+    const action = Controller.findAction(setting, prevSetting);
 
     return this.snapshots.update(setting.equation, x, setting.chartAppearance.draw, action);
   }

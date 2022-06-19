@@ -4,6 +4,7 @@ import { IColorGenerator } from "../colorGenerator/interface";
 import { IVisualizer } from "./interface";
 
 class Visualizer implements IVisualizer {
+  // eslint-disable-next-line class-methods-use-this
   public create = async (x: number[], drawSetting: DrawSetting): Promise<SnapshotDrawSetting[]> => {
     const colorGenerator: IColorGenerator = new ColorGenerator(drawSetting);
 

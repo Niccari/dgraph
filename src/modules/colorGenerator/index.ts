@@ -65,7 +65,7 @@ class ColorGenerator implements IColorGenerator {
     { position: 255, red: 255, green: 154, blue: 154 },
   ];
 
-  private colorToHex = (color: number) => {
+  private static colorToHex = (color: number) => {
     const hex = Math.round(color).toString(16);
     return hex.length === 1 ? `0${hex}` : hex;
   };
@@ -126,7 +126,10 @@ class ColorGenerator implements IColorGenerator {
         beforeWeight * this.colorTable[beforeIndex].blue + afterWeight * this.colorTable[afterIndex].blue
       ),
     };
-    return `#${this.colorToHex(color.red)}${this.colorToHex(color.green)}${this.colorToHex(color.blue)}`;
+    const red = ColorGenerator.colorToHex(color.red);
+    const green = ColorGenerator.colorToHex(color.green);
+    const blue = ColorGenerator.colorToHex(color.blue);
+    return `#${red}${green}${blue}`;
   }
 
   public next(): string {

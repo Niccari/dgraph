@@ -36,7 +36,6 @@ const SettingForm: (props: Props) => JSX.Element = ({ onSettingUpdate, simulatin
               <Field
                 type="text"
                 name="equation"
-                on
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.equation}

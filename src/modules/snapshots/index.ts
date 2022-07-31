@@ -19,9 +19,7 @@ class Snapshots implements ISnapshots {
 
   private getValues = async (equation: string, x: number[], action: ControllerUpdateAction): Promise<Value[]> => {
     if (action === ControllerUpdateAction.UpdateAll || action === ControllerUpdateAction.UpdateSimulation) {
-      return this.simulator.create(equation, x).catch((e) => {
-        return Promise.reject(e);
-      });
+      return this.simulator.create(equation, x).catch((e) => Promise.reject(e));
     }
     return this.snapshotsOrtho.map((s) => s.value);
   };
@@ -39,13 +37,11 @@ class Snapshots implements ISnapshots {
 
   private static toSnapshots = (x: number[], values: Value[], drawSettings: SnapshotDrawSetting[]): Snapshot[] => {
     const count = new Array(x.length).fill(0).map((_, index) => index);
-    return count.map((index) => {
-      return {
-        x: x[index],
-        value: values[index],
-        drawSetting: drawSettings[index],
-      };
-    });
+    return count.map((index) => ({
+      x: x[index],
+      value: values[index],
+      drawSetting: drawSettings[index],
+    }));
   };
 
   public update = async (
@@ -57,21 +53,17 @@ class Snapshots implements ISnapshots {
     if (action === ControllerUpdateAction.None) {
       return;
     }
-    const values = await this.getValues(equation, x, action).catch((e) => {
-      return Promise.reject(e);
-    });
+    const values = await this.getValues(equation, x, action).catch((e) => Promise.reject(e));
     const drawSettings = await this.getDrawSettings(x, drawSetting, action);
 
     this.snapshotsOrtho = Snapshots.toSnapshots(x, values, drawSettings);
-    this.snapshotsPolar = this.snapshotsOrtho.map((v) => {
-      return {
-        ...v,
-        value: {
-          x: Math.abs(v.value.y) * Math.cos(v.value.x),
-          y: Math.abs(v.value.y) * Math.sin(v.value.x),
-        },
-      };
-    });
+    this.snapshotsPolar = this.snapshotsOrtho.map((v) => ({
+      ...v,
+      value: {
+        x: Math.abs(v.value.y) * Math.cos(v.value.x),
+        y: Math.abs(v.value.y) * Math.sin(v.value.x),
+      },
+    }));
   };
 
   public get(coordinate: Coordinate): Snapshot[] {

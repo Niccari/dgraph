@@ -8,11 +8,9 @@ class Visualizer implements IVisualizer {
   public create = async (x: number[], drawSetting: DrawSetting): Promise<SnapshotDrawSetting[]> => {
     const colorGenerator: IColorGenerator = new ColorGenerator(drawSetting);
 
-    return x.map(() => {
-      return {
-        color: colorGenerator.next(),
-      };
-    });
+    return x.map(() => ({
+      color: colorGenerator.next(),
+    }));
   };
 }
 

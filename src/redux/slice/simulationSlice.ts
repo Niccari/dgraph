@@ -30,9 +30,7 @@ export const simulateAsync = createAsyncThunk(
   "simulation/simulateAsync",
   async (settings: SimulateAsyncSetting): Promise<ChartSetting> => {
     const { setting, prevSetting } = settings;
-    await controller.update(setting, prevSetting).catch((e) => {
-      return Promise.reject(e);
-    });
+    await controller.update(setting, prevSetting).catch((e) => Promise.reject(e));
     return settings.setting;
   }
 );
@@ -43,18 +41,14 @@ const simulationSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [simulateAsync.pending.toString()]: (state) => {
-      return {
-        ...state,
-        simulatingState: SimulatingState.Loading,
-      };
-    },
-    [simulateAsync.rejected.toString()]: (state) => {
-      return {
-        ...state,
-        simulatingState: SimulatingState.Error,
-      };
-    },
+    [simulateAsync.pending.toString()]: (state) => ({
+      ...state,
+      simulatingState: SimulatingState.Loading,
+    }),
+    [simulateAsync.rejected.toString()]: (state) => ({
+      ...state,
+      simulatingState: SimulatingState.Error,
+    }),
     [simulateAsync.fulfilled.toString()]: (state, action: PayloadAction<ChartSetting>) => {
       const chartSetting = action.payload;
       return {

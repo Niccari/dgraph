@@ -4,7 +4,6 @@
     "airbnb",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
@@ -12,9 +11,7 @@
   ],
   "plugins": [
     "react",
-    "import",
     "jsx-a11y",
-    "@typescript-eslint",
     "prefer-arrow"
   ],
   "env": { "node": true, "es6": true },
@@ -68,18 +65,6 @@
         "extensions": [".jsx", ".tsx"]
       }
     ],
-    "max-len": ["warn", {
-      "code": 120,
-      "ignoreUrls": true,
-      "ignoreComments": true
-    }],
-    "prettier/prettier": ["error", {
-      "printWidth": 120
-    }],
-    "indent": [ "error", 2, { "SwitchCase": 1 } ],
-    "linebreak-style": [ "error", "unix" ],
-    "quotes": [ "error", "double" ],
-    "semi": [ "error", "always" ],
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "react/function-component-definition": [

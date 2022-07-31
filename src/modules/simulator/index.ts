@@ -4,8 +4,8 @@ import { Value } from "../../models";
 
 class Simulator implements ISimulator {
   // eslint-disable-next-line class-methods-use-this
-  public create = async (equation: string, x: number[]): Promise<Value[]> => {
-    return Promise.all(
+  public create = async (equation: string, x: number[]): Promise<Value[]> =>
+    Promise.all(
       x.map(async (xi) => {
         try {
           const result = evaluate(equation, { x: xi });
@@ -18,7 +18,6 @@ class Simulator implements ISimulator {
         }
       })
     );
-  };
 }
 
 export default Simulator;

@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { useAppSelector } from "../redux/hooks";
 
-const QueryUpdateContainer = (): JSX.Element => {
+const QueryUpdater = (): null => {
   const setting = useAppSelector((state) => state.simulation.setting);
 
   useEffect(() => {
     const settingSerialized = btoa(JSON.stringify(setting));
     const url = `${window.location.pathname}?setting=${settingSerialized}`;
     window.history.replaceState(null, "update setting", url);
-  });
+  }, [setting]);
 
-  return <div />;
+  return null;
 };
 
-export default QueryUpdateContainer;
+export default QueryUpdater;

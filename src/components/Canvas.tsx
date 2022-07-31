@@ -1,12 +1,14 @@
 import "./Canvas.css";
 import { useEffect, useRef } from "react";
+import { useAppSelector } from "../redux/hooks";
+import controller from "../container";
 
-interface Props {
-  onDraw: (context: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number) => void;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Props {}
 
-const Canvas: React.FC<Props> = ({ onDraw }) => {
+const Canvas: React.FC<Props> = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const setting = useAppSelector((state) => state.simulation.setting);
 
   const adjustCanvasSize = (canvas: HTMLCanvasElement) => {
     // iOS Safari limitation: > 4096 x 4096 is not acceptable.
@@ -35,7 +37,7 @@ const Canvas: React.FC<Props> = ({ onDraw }) => {
     if (!context) {
       return;
     }
-    onDraw(context, canvas.width, canvas.height);
+    controller.draw(context, setting, canvas.width, canvas.height);
   });
 
   return <canvas className="canvas" ref={canvasRef} />;

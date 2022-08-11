@@ -1,24 +1,19 @@
 import { Formik } from "formik";
-import { initialState, simulateAsync } from "../redux/slice/simulationSlice";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useSimulationState } from "../hooks/simulationState";
+import { initialSetting } from "../models";
 import SettingFormContent from "./SettingFormContent";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
 const SettingForm: (props: Props) => JSX.Element = () => {
-  const dispatch = useAppDispatch();
-  const setting = useAppSelector((state) => state.simulation.setting);
+  const { updateSimulationState } = useSimulationState();
+
   return (
     <Formik
-      initialValues={initialState.setting}
+      initialValues={initialSetting}
       onSubmit={(submitedValues) => {
-        dispatch(
-          simulateAsync({
-            setting: submitedValues,
-            prevSetting: setting,
-          })
-        );
+        updateSimulationState(submitedValues);
       }}
       validate={(validatingValues) => {
         const errors: { equation?: string } = {};

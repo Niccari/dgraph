@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useAppSelector } from "../redux/hooks";
+import { useSimulationState } from "../hooks/simulationState";
 
 const QueryUpdater = (): null => {
-  const setting = useAppSelector((state) => state.simulation.setting);
+  const { setting } = useSimulationState();
 
   useEffect(() => {
     const settingSerialized = btoa(JSON.stringify(setting));

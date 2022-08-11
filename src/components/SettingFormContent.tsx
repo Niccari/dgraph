@@ -3,13 +3,13 @@ import { ChartSetting, Coordinate } from "../models";
 import { ColorPattern } from "../modules/colorGenerator/interface";
 import StateMessage from "./StateMessage";
 import "./SettingFormContent.css";
-import { useAppSelector } from "../redux/hooks";
+import { useSimulationState } from "../hooks/simulationState";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
 const SettingFormContent: (props: Props) => JSX.Element = () => {
-  const simulatingState = useAppSelector((state) => state.simulation.simulatingState);
+  const { isLoading, error } = useSimulationState();
   const { values, handleChange, handleBlur, handleSubmit, isValid } = useFormikContext<ChartSetting>();
 
   return (
@@ -28,7 +28,7 @@ const SettingFormContent: (props: Props) => JSX.Element = () => {
             className="SettingFormEquation"
           />
         </label>
-        <StateMessage simulatingState={simulatingState} />
+        <StateMessage isLoading={isLoading} error={error} />
       </div>
       <div className="SettingFormItem">
         <label className="SettingFormText">

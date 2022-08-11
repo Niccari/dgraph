@@ -6,7 +6,7 @@ class Simulator implements ISimulator {
   // eslint-disable-next-line class-methods-use-this
   public create = async (equation: string, x: number[]): Promise<Value[]> => {
     const fx = parser();
-    fx.evaluate(`f(x) = ${equation}`)
+    fx.evaluate(`f(x) = ${equation}`);
     return Promise.all(
       x.map(async (xi) => {
         try {
@@ -20,7 +20,7 @@ class Simulator implements ISimulator {
         }
       })
     );
-  }
+  };
 }
 
 export default Simulator;

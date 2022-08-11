@@ -1,14 +1,13 @@
-import { SimulatingState } from "../redux/slice/simulationSlice";
-
 interface Props {
-  simulatingState: SimulatingState;
+  isLoading: boolean;
+  error: Error | null;
 }
 
-const StateMessage: (props: Props) => JSX.Element = ({ simulatingState }) => (
+const StateMessage: (props: Props) => JSX.Element = ({ isLoading, error }) => (
   <>
-    {simulatingState === SimulatingState.Loading && <span>⏰</span>}
-    {simulatingState === SimulatingState.Error && <span>❌</span>}
-    {simulatingState === SimulatingState.Completed && <span>✅</span>}
+    {isLoading && <span>⏰</span>}
+    {error && <span>❌</span>}
+    {!isLoading && !error && <span>✅</span>}
   </>
 );
 

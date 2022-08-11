@@ -1,14 +1,14 @@
 import "./Canvas.css";
 import { useEffect, useRef } from "react";
-import { useAppSelector } from "../redux/hooks";
 import controller from "../container";
+import { useSimulationState } from "../hooks/simulationState";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
 const Canvas: React.FC<Props> = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const setting = useAppSelector((state) => state.simulation.setting);
+  const { setting } = useSimulationState();
 
   const adjustCanvasSize = (canvas: HTMLCanvasElement) => {
     // iOS Safari limitation: > 4096 x 4096 is not acceptable.

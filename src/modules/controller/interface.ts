@@ -6,7 +6,7 @@ export const ControllerUpdateAction = {
   UpdateAppearance: "UpdateAppearance",
   None: "None",
 } as const;
-export type ControllerUpdateAction = typeof ControllerUpdateAction[keyof typeof ControllerUpdateAction];
+export type ControllerUpdateAction = (typeof ControllerUpdateAction)[keyof typeof ControllerUpdateAction];
 
 export interface IController {
   update(setting: ChartSetting, PrevSetting: ChartSetting): Promise<void>;

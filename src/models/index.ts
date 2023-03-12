@@ -4,7 +4,7 @@ export const Coordinate = {
   Ortho: "Ortho",
   Polar: "Polar",
 } as const;
-export type Coordinate = typeof Coordinate[keyof typeof Coordinate];
+export type Coordinate = (typeof Coordinate)[keyof typeof Coordinate];
 
 export interface SnapshotDrawSetting {
   color: string;

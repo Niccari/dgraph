@@ -1,6 +1,6 @@
 interface Props {
   isLoading: boolean;
-  error: Error | null;
+  error?: Error;
 }
 
 const StateMessage: (props: Props) => JSX.Element = ({ isLoading, error }) => (

@@ -7,9 +7,9 @@ npm install
 ```
 
 ## Build for development
-We use Create React App (for TypeScript). Run the below script.
+We use vite (for TypeScript). Run the below script.
 ```bash
-npm run start
+npm run dev
 ```
 
 ## Build for production

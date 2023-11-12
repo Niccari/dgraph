@@ -18,7 +18,8 @@ export const useSimulationState = (): {
   updateSimulationState: (setting: ChartSetting) => void;
 } => {
   const queryClient = useQueryClient();
-  const { data } = useQuery<SimulationState, Error>([queryKey], {
+  const { data } = useQuery<SimulationState, Error>({
+    queryKey: [queryKey],
     initialData: {
       setting: initialSetting,
       error: undefined,

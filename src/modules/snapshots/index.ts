@@ -27,7 +27,7 @@ class Snapshots implements ISnapshots {
   private getDrawSettings = async (
     x: number[],
     drawSetting: DrawSetting,
-    action: ControllerUpdateAction
+    action: ControllerUpdateAction,
   ): Promise<SnapshotDrawSetting[]> => {
     if (action === ControllerUpdateAction.UpdateAll || action === ControllerUpdateAction.UpdateAppearance) {
       return this.visualizer.create(x, drawSetting);
@@ -48,7 +48,7 @@ class Snapshots implements ISnapshots {
     equation: string,
     x: number[],
     drawSetting: DrawSetting,
-    action: ControllerUpdateAction
+    action: ControllerUpdateAction,
   ): Promise<void> => {
     if (action === ControllerUpdateAction.None) {
       return;

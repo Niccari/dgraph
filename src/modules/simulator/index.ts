@@ -18,7 +18,7 @@ class Simulator implements ISimulator {
         } catch (e) {
           return Promise.reject(new Error(`Cannot eval: ${e}`));
         }
-      })
+      }),
     );
   };
 }

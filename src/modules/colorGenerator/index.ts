@@ -120,10 +120,10 @@ class ColorGenerator implements IColorGenerator {
     const color = {
       red: Math.floor(beforeWeight * this.colorTable[beforeIndex].red + afterWeight * this.colorTable[afterIndex].red),
       green: Math.floor(
-        beforeWeight * this.colorTable[beforeIndex].green + afterWeight * this.colorTable[afterIndex].green
+        beforeWeight * this.colorTable[beforeIndex].green + afterWeight * this.colorTable[afterIndex].green,
       ),
       blue: Math.floor(
-        beforeWeight * this.colorTable[beforeIndex].blue + afterWeight * this.colorTable[afterIndex].blue
+        beforeWeight * this.colorTable[beforeIndex].blue + afterWeight * this.colorTable[afterIndex].blue,
       ),
     };
     const red = ColorGenerator.colorToHex(color.red);

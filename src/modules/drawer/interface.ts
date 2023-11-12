@@ -7,6 +7,6 @@ export interface IDrawer {
     axisSetting: AxisSetting,
     thickness: number,
     canvasWidth: number,
-    canvasHeight: number
+    canvasHeight: number,
   ): void;
 }

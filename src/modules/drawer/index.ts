@@ -9,7 +9,7 @@ class Drawer implements IDrawer {
     axisSetting: AxisSetting,
     thickness: number,
     canvasWidth: number,
-    canvasHeight: number
+    canvasHeight: number,
   ): void {
     context.clearRect(0, 0, canvasWidth, canvasHeight);
     for (let i = 0; i < snapshots.length - 1; i += 1) {
@@ -33,7 +33,7 @@ class Drawer implements IDrawer {
     snapshot: Snapshot,
     axisSetting: AxisSetting,
     displayWidth: number,
-    displayHeight: number
+    displayHeight: number,
   ): [number, number] => {
     const { xMin, xMax, yMin, yMax } = axisSetting;
     return [

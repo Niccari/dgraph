@@ -50,7 +50,7 @@ class Controller implements IController {
     context: CanvasRenderingContext2D,
     setting: ChartSetting,
     canvasWidth: number,
-    canvasHeight: number
+    canvasHeight: number,
   ): void {
     const { coordinate, axis } = setting;
     const { thickness } = setting.chartAppearance;

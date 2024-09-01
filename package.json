@@ -1,6 +1,6 @@
 {
   "name": "dgraph",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "license": "MIT",
   "dependencies": {
     "@tanstack/react-query": "^5.40.1",

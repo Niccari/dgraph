@@ -33,7 +33,7 @@
   },
   "scripts": {
     "dev": "SW_DEV=true vite",
-    "build": "GENERATE_SOURCEMAP=false vite build",
+    "build": "tsc --noemit && GENERATE_SOURCEMAP=false vite build",
     "preview": "vite preview",
     "lint": "eslint --fix -c eslint.config.mjs",
     "lint:fix": "eslint --fix -c eslint.config.mjs && prettier --write --loglevel=warn 'src/**/*.{js,jsx,ts,tsx}'"

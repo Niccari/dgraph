@@ -1,12 +1,9 @@
 import "./Canvas.css";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import controller from "../container";
 import { useSimulationState } from "../hooks/simulationState";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Props {}
-
-const Canvas: React.FC<Props> = () => {
+const Canvas = (): React.ReactElement => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { setting } = useSimulationState();
 
@@ -14,9 +11,7 @@ const Canvas: React.FC<Props> = () => {
     // iOS Safari limitation: > 4096 x 4096 is not acceptable.
     const width = Math.min(1000 * window.devicePixelRatio, 4000);
 
-    // eslint-disable-next-line no-param-reassign
     canvas.width = width;
-    // eslint-disable-next-line no-param-reassign
     canvas.height = width;
   };
 

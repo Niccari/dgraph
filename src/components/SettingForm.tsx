@@ -1,12 +1,10 @@
+import React from "react";
 import { Formik } from "formik";
 import { useSimulationState } from "../hooks/simulationState";
 import { initialSetting } from "../models";
 import SettingFormContent from "./SettingFormContent";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Props {}
-
-const SettingForm: (props: Props) => JSX.Element = () => {
+const SettingForm: () => React.ReactElement = () => {
   const { updateSimulationState } = useSimulationState();
 
   return (

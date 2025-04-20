@@ -3,7 +3,7 @@ import { ISimulator } from "./interface";
 import { Value } from "../../models";
 
 class Simulator implements ISimulator {
-  // eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   public create = async (equation: string, x: number[]): Promise<Value[]> => {
     const fx = parser();
     fx.evaluate(`f(x) = ${equation}`);

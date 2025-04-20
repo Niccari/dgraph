@@ -1,3 +1,4 @@
+import React from "react";
 import { Field, Form, useFormikContext } from "formik";
 import { ChartSetting, Coordinate } from "../models";
 import { ColorPattern } from "../modules/colorGenerator/interface";
@@ -5,10 +6,7 @@ import StateMessage from "./StateMessage";
 import "./SettingFormContent.css";
 import { useSimulationState } from "../hooks/simulationState";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Props {}
-
-const SettingFormContent: (props: Props) => JSX.Element = () => {
+const SettingFormContent: () => React.ReactElement = () => {
   const { isLoading, error } = useSimulationState();
   const { values, handleChange, handleBlur, handleSubmit, isValid } = useFormikContext<ChartSetting>();
 

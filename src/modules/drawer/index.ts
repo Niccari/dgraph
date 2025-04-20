@@ -2,7 +2,7 @@ import { Snapshot, AxisSetting } from "../../models";
 import { IDrawer } from "./interface";
 
 class Drawer implements IDrawer {
-  // eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   public draw(
     context: CanvasRenderingContext2D,
     snapshots: Snapshot[],

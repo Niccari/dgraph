@@ -1,6 +1,6 @@
 import { parser } from "mathjs";
-import { ISimulator } from "./interface";
 import { Value } from "../../models";
+import { ISimulator } from "./interface";
 
 class Simulator implements ISimulator {
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this

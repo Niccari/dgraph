@@ -2,9 +2,9 @@ import React from "react";
 import { Field, Form, useFormikContext } from "formik";
 import { ChartSetting, Coordinate } from "../models";
 import { ColorPattern } from "../modules/colorGenerator/interface";
+import { useSimulationState } from "../hooks/simulationState";
 import StateMessage from "./StateMessage";
 import "./SettingFormContent.css";
-import { useSimulationState } from "../hooks/simulationState";
 
 const SettingFormContent: () => React.ReactElement = () => {
   const { isLoading, error } = useSimulationState();

@@ -9,6 +9,11 @@ type SimulationState = {
 };
 
 const queryKey = "simulationState";
+const initialData = {
+  setting: initialSetting,
+  error: undefined,
+  isLoading: false,
+};
 
 export const useSimulationState = (): {
   setting: ChartSetting;
@@ -19,12 +24,9 @@ export const useSimulationState = (): {
   const queryClient = useQueryClient();
   const { data } = useQuery<SimulationState, Error>({
     queryKey: [queryKey],
-    initialData: {
-      setting: initialSetting,
-      error: undefined,
-      isLoading: false,
-    },
+    initialData,
     enabled: false,
+    queryFn: () => queryClient.getQueryData<SimulationState>([queryKey]) ?? initialData,
   });
 
   const updateSimulationState = async (setting: ChartSetting) => {

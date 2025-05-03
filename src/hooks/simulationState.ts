@@ -10,7 +10,6 @@ type SimulationState = {
 
 const queryKey = "simulationState";
 
-// eslint-disable-next-line import/prefer-default-export
 export const useSimulationState = (): {
   setting: ChartSetting;
   error?: Error;

@@ -70,7 +70,7 @@ export const initialSetting = ((): ChartSetting => {
   const settingQuery = query.get("setting") || "";
   try {
     return JSON.parse(atob(settingQuery));
-  } catch (e) {
+  } catch {
     return defaultSetting;
   }
 })();

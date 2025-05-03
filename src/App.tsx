@@ -1,3 +1,4 @@
+import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./App.css";
 import Canvas from "./components/Canvas";
@@ -13,7 +14,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const App = (): JSX.Element => (
+const App = (): React.ReactElement => (
   <QueryClientProvider client={queryClient}>
     <SettingForm />
     <Canvas />

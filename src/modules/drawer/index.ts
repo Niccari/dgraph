@@ -2,7 +2,7 @@ import { Snapshot, AxisSetting } from "../../models";
 import { IDrawer } from "./interface";
 
 class Drawer implements IDrawer {
-  // eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   public draw(
     context: CanvasRenderingContext2D,
     snapshots: Snapshot[],
@@ -12,12 +12,10 @@ class Drawer implements IDrawer {
     canvasHeight: number,
   ): void {
     context.clearRect(0, 0, canvasWidth, canvasHeight);
-    for (let i = 0; i < snapshots.length - 1; i += 1) {
-      const start = snapshots[i];
-      const end = snapshots[i + 1];
 
+    snapshots.reduce((start, end) => {
       context.lineWidth = thickness;
-      context.strokeStyle = snapshots[i].drawSetting.color;
+      context.strokeStyle = start.drawSetting.color;
 
       context.beginPath();
       const [startX, startY] = Drawer.rescalePoint(start, axisSetting, canvasWidth, canvasHeight);
@@ -26,7 +24,9 @@ class Drawer implements IDrawer {
       context.lineTo(endX, endY);
       context.closePath();
       context.stroke();
-    }
+
+      return end;
+    }, snapshots[0] as Snapshot);
   }
 
   private static rescalePoint = (

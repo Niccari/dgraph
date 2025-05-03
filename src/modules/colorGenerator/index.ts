@@ -95,19 +95,22 @@ class ColorGenerator implements IColorGenerator {
       }
     })();
 
+    let startIndex = 0;
     let endIndex = 1;
-    let start = gradient[0];
-    let end = gradient[1];
     for (let i = 0; i < 256; i += 1) {
+      const start = gradient[startIndex];
+      const end = gradient[endIndex];
+      if (!start || !end) {
+        return;
+      }
       const ratio = (i - start.position) / (end.position - start.position);
       const red = start.red + ratio * (end.red - start.red);
       const green = start.green + ratio * (end.green - start.green);
       const blue = start.blue + ratio * (end.blue - start.blue);
       this.colorTable.push({ position: i, red, green, blue });
       if (end.position === i) {
-        start = end;
+        startIndex = endIndex;
         endIndex += 1;
-        end = gradient[endIndex];
       }
     }
   }
@@ -117,14 +120,17 @@ class ColorGenerator implements IColorGenerator {
     const afterIndex = Math.ceil(index) !== this.colorTable.length - 1 ? Math.ceil(index) : 0;
     const beforeWeight = index - beforeIndex;
     const afterWeight = 1 - beforeWeight;
+
+    const beforeColor = this.colorTable[beforeIndex];
+    const afterColor = this.colorTable[afterIndex];
+    if (!beforeColor || !afterColor) {
+      return "#000000";
+    }
+
     const color = {
-      red: Math.floor(beforeWeight * this.colorTable[beforeIndex].red + afterWeight * this.colorTable[afterIndex].red),
-      green: Math.floor(
-        beforeWeight * this.colorTable[beforeIndex].green + afterWeight * this.colorTable[afterIndex].green,
-      ),
-      blue: Math.floor(
-        beforeWeight * this.colorTable[beforeIndex].blue + afterWeight * this.colorTable[afterIndex].blue,
-      ),
+      red: Math.floor(beforeWeight * beforeColor.red + afterWeight * afterColor.red),
+      green: Math.floor(beforeWeight * beforeColor.green + afterWeight * afterColor.green),
+      blue: Math.floor(beforeWeight * beforeColor.blue + afterWeight * afterColor.blue),
     };
     const red = ColorGenerator.colorToHex(color.red);
     const green = ColorGenerator.colorToHex(color.green);

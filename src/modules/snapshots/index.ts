@@ -38,9 +38,9 @@ class Snapshots implements ISnapshots {
   private static toSnapshots = (x: number[], values: Value[], drawSettings: SnapshotDrawSetting[]): Snapshot[] => {
     const count = new Array(x.length).fill(0).map((_, index) => index);
     return count.map((index) => ({
-      x: x[index],
-      value: values[index],
-      drawSetting: drawSettings[index],
+      x: x[index] ?? 0,
+      value: values[index] ?? { x: 0, y: 0 },
+      drawSetting: drawSettings[index] ?? { color: "#000000", thickness: 1 },
     }));
   };
 

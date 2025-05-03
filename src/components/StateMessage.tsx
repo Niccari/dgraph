@@ -1,9 +1,11 @@
+import React from "react";
+
 interface Props {
   isLoading: boolean;
   error?: Error;
 }
 
-const StateMessage: (props: Props) => JSX.Element = ({ isLoading, error }) => (
+const StateMessage = ({ isLoading, error }: Props) => (
   <>
     {isLoading && <span>⏰</span>}
     {error && <span>❌</span>}

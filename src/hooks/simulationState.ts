@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { atom, useAtom } from "jotai";
 import controller from "../container";
 import { ChartSetting, initialSetting } from "../models";
 
@@ -8,47 +8,42 @@ type SimulationState = {
   isLoading: boolean;
 };
 
-const queryKey = "simulationState";
-const initialData = {
+const initialData: SimulationState = {
   setting: initialSetting,
   error: undefined,
   isLoading: false,
 };
 
-export const useSimulationState = (): {
-  setting: ChartSetting;
-  error?: Error;
-  isLoading: boolean;
-  updateSimulationState: (setting: ChartSetting) => void;
-} => {
-  const queryClient = useQueryClient();
-  const { data } = useQuery<SimulationState, Error>({
-    queryKey: [queryKey],
-    initialData,
-    enabled: false,
-    queryFn: () => queryClient.getQueryData<SimulationState>([queryKey]) ?? initialData,
-  });
+const simulationStateAtom = atom<SimulationState>(initialData);
+
+export const useSimulationState = () => {
+  const [state, setState] = useAtom(simulationStateAtom);
 
   const updateSimulationState = async (setting: ChartSetting) => {
-    queryClient.setQueryData<SimulationState>([queryKey], {
-      ...data,
+    setState((prev) => ({
+      ...prev,
       isLoading: true,
-    });
+    }));
+
     try {
-      await controller.update(setting, data.setting);
-      queryClient.setQueryData<SimulationState>([queryKey], {
-        ...data,
+      await controller.update(setting, state.setting);
+      setState((prev) => ({
+        ...prev,
         setting,
         error: undefined,
         isLoading: false,
-      });
+      }));
     } catch (e) {
-      queryClient.setQueryData<SimulationState>([queryKey], {
-        ...data,
+      setState((prev) => ({
+        ...prev,
         error: e as Error,
         isLoading: false,
-      });
+      }));
     }
   };
-  return { ...data, updateSimulationState };
+
+  return {
+    ...state,
+    updateSimulationState,
+  };
 };

@@ -25,21 +25,24 @@ export const useSimulationState = () => {
       isLoading: true,
     }));
 
-    try {
-      await controller.update(setting, state.setting);
-      setState((prev) => ({
-        ...prev,
-        setting,
-        error: undefined,
-        isLoading: false,
-      }));
-    } catch (e) {
-      setState((prev) => ({
-        ...prev,
-        error: e as Error,
-        isLoading: false,
-      }));
-    }
+    // wait isLoading ui update
+    setTimeout(async () => {
+      try {
+        await controller.update(setting, state.setting);
+        setState((prev) => ({
+          ...prev,
+          setting,
+          error: undefined,
+          isLoading: false,
+        }));
+      } catch (e) {
+        setState((prev) => ({
+          ...prev,
+          error: e as Error,
+          isLoading: false,
+        }));
+      }
+    }, 0);
   };
 
   return {

@@ -13,20 +13,29 @@ class Drawer implements IDrawer {
   ): void {
     context.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    snapshots.reduce((start, end) => {
-      context.lineWidth = thickness;
-      context.strokeStyle = start.drawSetting.color;
+    if (snapshots.length < 2) return;
 
+    context.lineWidth = thickness;
+
+    let i = 0;
+    while (i < snapshots.length - 1) {
+      const currentColor = snapshots[i]!.drawSetting.color;
+
+      context.strokeStyle = currentColor;
       context.beginPath();
-      const [startX, startY] = Drawer.rescalePoint(start, axisSetting, canvasWidth, canvasHeight);
-      context.moveTo(startX, startY);
-      const [endX, endY] = Drawer.rescalePoint(end, axisSetting, canvasWidth, canvasHeight);
-      context.lineTo(endX, endY);
-      context.closePath();
-      context.stroke();
 
-      return end;
-    }, snapshots[0] as Snapshot);
+      const [startX, startY] = Drawer.rescalePoint(snapshots[i]!, axisSetting, canvasWidth, canvasHeight);
+      context.moveTo(startX, startY);
+
+      // minimize stroke style change
+      while (i < snapshots.length - 1 && snapshots[i]!.drawSetting.color === currentColor) {
+        i++;
+        const [x, y] = Drawer.rescalePoint(snapshots[i]!, axisSetting, canvasWidth, canvasHeight);
+        context.lineTo(x, y);
+      }
+
+      context.stroke();
+    }
   }
 
   private static rescalePoint = (

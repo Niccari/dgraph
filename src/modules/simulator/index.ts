@@ -12,7 +12,7 @@ class Simulator implements ISimulator {
   }
 
   public create = async (equation: string, x: number[]): Promise<Value[]> => {
-    const results: Value[] = [];
+    const results: Value[] = new Array(x.length);
 
     for (let i = 0; i < x.length; i++) {
       const xi = x[i]!; // Safe since we're iterating with i < x.length
@@ -32,9 +32,9 @@ class Simulator implements ISimulator {
           { x: xDegrees },
         );
         if (typeof result === "number") {
-          results.push({ x: xi, y: result });
+          results[i] = { x: xi, y: result };
         } else {
-          results.push({ x: xi, y: NaN });
+          results[i] = { x: xi, y: NaN };
         }
       } catch (e) {
         throw new Error(`Cannot eval: ${e}`);

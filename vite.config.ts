@@ -44,5 +44,9 @@ export default defineConfig({
   build: {
     outDir: 'build',
   },
-  plugins: [react(), VitePWA(pwaOptions)],
+  plugins: [react({
+    babel: {
+      plugins: ['babel-plugin-react-compiler'],
+    },
+  }), VitePWA(pwaOptions)],
 });

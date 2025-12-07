@@ -33,7 +33,7 @@ const Canvas = (): React.ReactElement => {
       return;
     }
     controller.draw(context, setting, canvas.width, canvas.height);
-  });
+  }, [setting]);
 
   return <canvas className="canvas" ref={canvasRef} />;
 };

@@ -43,6 +43,15 @@ export default defineConfig({
   },
   build: {
     outDir: 'build',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'status': ['formik', 'jotai'],
+          'math': ['math-expression-evaluator'],
+          'ui': ['react', 'react-dom/client'],
+        },
+      },
+    },
   },
   plugins: [react({
     babel: {

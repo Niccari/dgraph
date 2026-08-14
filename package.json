@@ -1,6 +1,6 @@
 {
   "name": "dgraph",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "license": "MIT",
   "dependencies": {
     "formik": "^2.4.9",

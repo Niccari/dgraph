@@ -1,5 +1,5 @@
 import js from '@eslint/js';
-import importPlugin from "eslint-plugin-import";
+import { importX } from "eslint-plugin-import-x";
 import pluginJsxA11y from "eslint-plugin-jsx-a11y";
 import reactPlugin from "eslint-plugin-react";
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -12,7 +12,7 @@ export default [
     files: ["src/**/*.{ts,tsx}"],
   },
   {
-    ignores: ["**/*.config.mjs", "**/public/*", ".prettierrc.js", "**/dev-dist/*", "**/build/*", "vite.config.ts", "**/node_modules/*"],
+    ignores: ["**/*.config.mjs", "**/public/*", ".prettierrc.js", "**/dev-dist/*", "**/build/*", "vite.config.mts", "**/node_modules/*"],
   },
   {
     plugins: {
@@ -40,7 +40,7 @@ export default [
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  importPlugin.flatConfigs.recommended,
+  importX.flatConfigs.recommended,
   reactPlugin.configs.flat.recommended,
   configPrettier,
   {
@@ -89,8 +89,8 @@ export default [
       ],
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-      "import/order": "error",
-      "import/no-unresolved": "off",
+      "import-x/order": "error",
+      "import-x/no-unresolved": "off",
     },
   },
 ];

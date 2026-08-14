@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
-import react from '@vitejs/plugin-react';
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
+import babel from '@rolldown/plugin-babel';
 
 const pwaBaseUrl = process.env.SW_DEV === 'true' ? '.' : './';
 const pwaOptions: Partial<VitePWAOptions> = {
@@ -43,19 +44,19 @@ export default defineConfig({
   },
   build: {
     outDir: 'build',
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          'status': ['formik', 'jotai'],
-          'math': ['math-expression-evaluator'],
-          'ui': ['react', 'react-dom/client'],
+        manualChunks: (id: string) => {
+          if (id.includes('formik') || id.includes('jotai')) return 'status';
+          if (id.includes('math-expression-evaluator')) return 'math';
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) return 'ui';
         },
       },
     },
   },
-  plugins: [react({
-    babel: {
-      plugins: ['babel-plugin-react-compiler'],
-    },
-  }), VitePWA(pwaOptions)],
+  plugins: [
+    react(),
+    babel({ presets: [reactCompilerPreset()] }),
+    VitePWA(pwaOptions),
+  ],
 });
